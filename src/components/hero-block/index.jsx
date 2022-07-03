@@ -1,11 +1,19 @@
 const HeroBlock = ({ content }) => (
   <>
-    <h1>{content.Heading}</h1>
+    <h1 className="text-4xl">{content.Heading}</h1>
     <p>{content.main_content}</p>
     {content.linker.map((link) => {
-      const cleanLink = link.uri.split("/").slice(1).join("/");
+      const cleanLink = link.uri
+        .split("/")
+        .slice(1)
+        .join("/")
+        .replace("__home__", "/");
       return (
-        <a href={cleanLink} key={link.uri} className="bg-slate-500">
+        <a
+          href={cleanLink}
+          key={link.uri}
+          className="bg-slate-100 text-blue-500"
+        >
           {link.title}
         </a>
       );

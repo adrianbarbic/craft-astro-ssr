@@ -4,8 +4,6 @@ const CTABlock = ({ content }) => (
       <div className="container relative z-20 flex flex-col w-full px-5 pb-1 pr-12 mb-16 text-2xl text-gray-700 lg:w-1/2 sm:pr-0 md:pr-6 md:pl-0 lg:pl-5 xl:pr-10 sm:items-center lg:items-start lg:mb-0">
         <h1 className="relative z-20 text-5xl font-extrabold leading-none text-purple-500 xl:text-6xl sm:text-center lg:text-left">
           {content.header}
-          <br />
-          <span className="mt-1 text-gray-800 lg:mt-0">You in Mind</span>
         </h1>
         <p className="relative z-20 block mt-6 text-base text-gray-500 xl:text-xl sm:text-center lg:text-left">
           We've crafted the ultimate tool that helps you build the design of
