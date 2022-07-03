@@ -1,7 +1,7 @@
 const HeroBlock = ({ content }) => (
-  <>
+  <div className="p-12">
     <h1 className="text-4xl">{content.Heading}</h1>
-    <p>{content.main_content}</p>
+    <p className="pb-4">{content.main_content}</p>
     {content.linker.map((link) => {
       const cleanLink = link.uri
         .split("/")
@@ -12,13 +12,13 @@ const HeroBlock = ({ content }) => (
         <a
           href={cleanLink}
           key={link.uri}
-          className="bg-slate-100 text-blue-500"
+          className="bg-slate-100 p-1 mr-2 text-blue-500 border border-blue-500 rounded-md "
         >
           {link.title}
         </a>
       );
     })}
-  </>
+  </div>
 );
 
 HeroBlock.Fragment = `
