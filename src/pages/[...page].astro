@@ -1,0 +1,85 @@
+---
+import { CTABlock, HeroBlock, FooterBlock, HeaderBlock, LogoCloudBlock, PageNotFound } from "../components";
+
+const { page } = Astro.params as {page: string};
+const updatedParams = page?.replace(/\//g, "+");
+
+const data = await fetch(`http://67.219.97.77/api/`, {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer B2FreWOcx_iucS3K_86-xhEqOG1U5q6Q",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    query: `
+    query MyQuery($slug: String!) {
+        entry(slug: [$slug]) {
+            id
+            title
+            uri
+            url
+            ... on pages_default_Entry {
+              blocks {
+                ${CTABlock.Fragment}
+                ${FooterBlock.Fragment}
+                ${HeaderBlock.Fragment}
+                ${HeroBlock.Fragment}
+                ${LogoCloudBlock.Fragment}
+              }
+            }
+          }
+        }
+      `,
+    variables: {
+      slug: updatedParams === undefined ? "__home__" : updatedParams,
+    },
+  }),
+})
+  .then((response) => response.json())
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    console.log("error:", error);
+  });
+
+console.log(data);
+
+if (!data.entry) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not found",
+  });
+}
+
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Craft CMS and Astro SSR</title>
+  </head>
+
+  <body>
+    <HeaderBlock content="hi" />
+    {data?.entry?.blocks?.map((block) => {
+      switch (block.typeHandle) {
+        case "ctaBlock":
+          return <CTABlock content={block} />;
+        case "footerBlock":
+          return <FooterBlock content={block} />;
+        case "headerBlock":
+          return <HeaderBlock content={block} />;
+        case "heroblock":
+          return <HeroBlock content={block} />;
+        case "logoCloudBlock":
+          return <LogoCloudBlock content={block} />;
+        default:
+          return <PageNotFound component={block?.typeHandle} />;
+      }
+      })}
+    <FooterBlock content="bye" />
+  </body>
+</html>
