@@ -1,5 +1,5 @@
 const HeroBlock = ({ content }) => (
-  <div className="p-12">
+  <div className="p-12 m-4 bg-gray-50 border border-gray-200">
     <h1 className="text-4xl">{content.Heading}</h1>
     <p className="pb-4">{content.main_content}</p>
     {content.linker.map((link) => {
