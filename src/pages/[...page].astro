@@ -68,7 +68,7 @@ if (!data.entry) {
         case "heroblock":
           return <HeroBlock content={block} />;
         case "logoCloudBlock":
-          return <LogoCloudBlock content={block} />;
+          return <LogoCloudBlock client:visible content={block} />;
         default:
           return <PageNotFound component={block?.typeHandle} />;
       }

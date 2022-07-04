@@ -1,3 +1,5 @@
+import { Counter } from "../counter";
+
 const LogoCloudBlock = ({ content }) => {
   return (
     <div className="bg-white">
@@ -77,6 +79,7 @@ const LogoCloudBlock = ({ content }) => {
           </div>
         </div>
       </div>
+      <Counter />
     </div>
   );
 };
